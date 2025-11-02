@@ -1,0 +1,30 @@
+#mainPage {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+}
+
+#bigLogoMain {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bigLogoMain img {
+  max-width: 100%;
+  height: auto;
+}
+
+#mainPage > div:last-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  background-color: aqua;
+}
+#sloganMain {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
