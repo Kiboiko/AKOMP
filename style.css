@@ -1,13 +1,14 @@
 @import url("./mainPageStyles.css");
 @import url("/headerStyles.css");
-
+@import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap");
 :root {
   --black-color: #000000;
   --white-color: #ffffff;
   --bg-blue-color: #007ea7;
-  /* --bg-all-color: --white-color; */
+  --bg-all-color: #f7f6ff;
 }
 body {
   margin: 0px;
-  background-color: var(--white-color);
+  background-color: var(--bg-all-color);
+  font-family: "Geologica", sans-serif;
 }
