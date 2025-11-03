@@ -1,5 +1,6 @@
-@import url("./mainPageStyles.css");
-@import url("/headerStyles.css");
+@import url("/CSS/mainPageStyles.css");
+@import url("/CSS/headerStyles.css");
+@import url("/CSS/catalogStyles.css");
 @import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap");
 :root {
   --black-color: #000000;
