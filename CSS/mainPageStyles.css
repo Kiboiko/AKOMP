@@ -33,15 +33,11 @@
   opacity: 0.8;
 }
 #toAboutButton {
-  /* margin-left: auto;
-  margin-right: auto; */
   margin-top: 2rem;
   padding: 1rem;
-  width: fit-content;
-  height: auto;
   font-size: large;
-  background-color: var(--bg-blue-color);
-  color: var(--white-color);
-  border: none;
   border-radius: 7px;
+}
+#toAboutButton:hover {
+  background-color: var(--light-blue-color);
 }

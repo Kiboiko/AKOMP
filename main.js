@@ -1,4 +1,3 @@
-// script.js
 class ProductManager {
   constructor() {
     this.products = [];
@@ -37,7 +36,7 @@ class ProductManager {
                   product.price
                 )}</div>
                 <button class="more-info-button">
-                    В корзину
+                    Подробнее
                 </button>
             </div>
         `;
