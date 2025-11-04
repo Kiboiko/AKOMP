@@ -1,0 +1,35 @@
+.aboutUsPage {
+  display: flex;
+  align-items: center;
+  min-height: 80vh;
+}
+#illustration {
+  flex: 1.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#illustration img {
+  max-width: 100%;
+  height: auto;
+}
+
+#descriptionAboutUs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#descriptionAboutUs > #slogan {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  padding-left: 8rem;
+  padding-right: 8rem;
+}
+#descriptionAboutUs > span:last-child {
+  color: #474747;
+  padding-left: 8rem;
+  padding-right: 8rem;
+}

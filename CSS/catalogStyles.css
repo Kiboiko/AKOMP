@@ -1,4 +1,8 @@
-.container > .pageName {
+.productsPage {
+  border-bottom: 1px solid var(--black-color);
+}
+
+.productsPage > .pageName {
   text-align: center;
 }
 
@@ -16,6 +20,8 @@
   background: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:hover {
@@ -39,6 +45,8 @@
 .product-description {
   color: #666;
   margin-bottom: 10px;
+  flex-grow: 1; /* Занимает доступное пространство */
+  min-height: 60px;
 }
 
 .product-price {

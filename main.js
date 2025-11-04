@@ -15,6 +15,17 @@ class ProductManager {
     }
   }
 
+  //Метод для определения самого длинного описания
+  getLongestDescription() {
+    let longest = -1;
+    this.products.forEach((product) => {
+      if (product.description.length > longest) {
+        longest = product.description.length;
+      }
+    });
+    return longest;
+  }
+
   // Метод для форматирования цены
   formatPrice(price) {
     return new Intl.NumberFormat("ru-RU", {
@@ -25,13 +36,17 @@ class ProductManager {
 
   // Метод для создания HTML карточки
   createProductCard(product) {
+    console.log(this.getLongestDescription());
+    let formatDescription =
+      product.description +
+      " ".repeat(this.getLongestDescription() - product.description.length);
     return `
             <div class="product-card" data-id="${product.id}">
                 <img src="${product.image}" alt="${
       product.name
     }" class="product-image">
                 <div class="product-name">${product.name}</div>
-                <div class="product-description">${product.description}</div>
+                <div class="product-description">${formatDescription}</div>
                 <div class="product-price">${this.formatPrice(
                   product.price
                 )}</div>

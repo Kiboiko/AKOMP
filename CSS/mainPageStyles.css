@@ -1,4 +1,5 @@
 #mainPage {
+  margin-top: 7vh;
   display: flex;
   align-items: center;
   min-height: 80vh;
