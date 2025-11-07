@@ -10,18 +10,16 @@
       <div>
         <div id="headerlogo">АКОМП ЮГ</div>
         <div id="headermenu">
-          <div>Главная</div>
-          <div>Каталог</div>
-          <div>О компании</div>
-          <div>Отзывы</div>
-        </div>
-        <div class="headercontacts">
-          <email>example@email.com</email>
-          <phone>8 (800) 555-35-35</phone>
+          <div><a href="#mainPage-anchor">Главная</a></div>
+          <div><a href="#productsContainer-anchor">Каталог</a></div>
+          <div><a href="#descriptionAboutUs-anchor">О компании</a></div>
+          <div><a href="#commentsContainer-anchor">Отзывы</a></div>
+          <div><a href="#informationPage-anchor">Контакты</a></div>
         </div>
       </div>
     </header>
     <main>
+      <div id="mainPage-anchor" style="position: relative; top: -80px"></div>
       <div id="mainPage">
         <div id="bigLogoMain">
           <img src="media/logo.png" alt="Logo" />
@@ -33,16 +31,26 @@
           <span id="descriptionMain"
             >Сгущенное молоко и сливки прямого производства</span
           >
-          <button id="toAboutButton">Узнать больше→</button>
+          <a href="#descriptionAboutUs-anchor" id="toAboutButton"
+            >Узнать больше→</a
+          >
         </div>
       </div>
     </main>
     <div class="productsPage">
+      <div
+        id="productsContainer-anchor"
+        style="position: relative; top: -80px"
+      ></div>
       <h1 class="pageName">Наши товары</h1>
       <div class="products-grid" id="productsContainer">
         <!-- Карточки будут генерироваться здесь -->
       </div>
     </div>
+    <div
+      id="descriptionAboutUs-anchor"
+      style="position: relative; top: -80px"
+    ></div>
     <div class="aboutUsPage">
       <div id="illustration">
         <img src="media/illustration.png" alt="АКОМП ЮГ" />
@@ -64,9 +72,118 @@
       </div>
     </div>
     <div class="commentsPage">
+      <div
+        id="commentsContainer-anchor"
+        style="position: relative; top: -80px"
+      ></div>
       <h1 class="pageName">Отзывы наших клиентов</h1>
       <div class="comments-grid" id="commentsContainer">
         <!-- Отзывы будут генерироваться здесь -->
+      </div>
+    </div>
+    <div class="informationPage">
+      <div
+        id="informationPage-anchor"
+        style="position: relative; top: -80px"
+      ></div>
+      <h1 class="pageName">Контактная информация</h1>
+      <div class="info-container">
+        <div class="info-section">
+          <h2>Реквизиты компании</h2>
+          <div class="info-item">
+            <span class="info-label">Полное наименование</span>
+            <span class="info-value"
+              >Общество с ограниченной ответственностью «АКОМП ЮГ»</span
+            >
+          </div>
+          <div class="info-item">
+            <span class="info-label">Сокращенное наименование</span>
+            <span class="info-value">ООО «АКОМП ЮГ»</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Юридический адрес</span>
+            <span class="info-value"
+              >Россия, Ростовская область, г. Батайск, ул. Северная, зд.4</span
+            >
+          </div>
+          <div class="info-item">
+            <span class="info-label">Адрес производства</span>
+            <span class="info-value"
+              >346780 Россия, Ростовская область, г. Азов, Кагальницкое шоссе, 5
+              А</span
+            >
+          </div>
+          <div class="info-item">
+            <span class="info-label">Генеральный директор</span>
+            <span class="info-value">Чернышов Олег Геннадьевич</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Контактные данные</h2>
+          <div class="contacts-grid">
+            <div class="contact-department">
+              <div class="department-name">Основной телефон</div>
+              <div class="department-contact">+7 (86342) 6-94-00</div>
+            </div>
+            <div class="contact-department">
+              <div class="department-name">Бухгалтерия</div>
+              <div class="department-contact">+7 (86342) 6-94-00, 6-03-01</div>
+            </div>
+            <div class="contact-department">
+              <div class="department-name">Отдел продаж</div>
+              <div class="department-contact">+7 (989) 624-69-89</div>
+            </div>
+            <div class="contact-department">
+              <div class="department-name">Электронная почта</div>
+              <div class="department-contact">akomp_buh@mail.ru</div>
+            </div>
+            <div class="contact-department">
+              <div class="department-name">E-mail отдела продаж</div>
+              <div class="department-contact">kopirsak_sales@mail.ru</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Банковские реквизиты</h2>
+          <div class="info-item">
+            <span class="info-label">Расчетный счет</span>
+            <span class="info-value">40702810152090088809</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Банк</span>
+            <span class="info-value">Юго-западный Банк ПАО СБЕРБАНК</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">БИК</span>
+            <span class="info-value">046015602</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Корреспондентский счет</span>
+            <span class="info-value">30101810600000000602</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h2>Идентификационные коды</h2>
+          <div class="info-item">
+            <span class="info-label">ИНН</span>
+            <span class="info-value">6141062402</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">КПП</span>
+            <span class="info-value">614101001</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">ОГРН</span>
+            <span class="info-value">1246100031980</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">ОКПО</span>
+            <span class="info-value">76710916</span>
+          </div>
+        </div>
       </div>
     </div>
     <script src="main.js"></script>

@@ -1,0 +1,104 @@
+.informationPage {
+  padding: 40px 20px;
+  background-color: var(--bg-all-color);
+  min-height: 60vh;
+}
+
+.informationPage > .pageName {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--black-color);
+}
+
+.info-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.info-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.info-section h2 {
+  color: var(--dark-blue-color);
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  border-bottom: 2px solid var(--light-blue-color);
+  padding-bottom: 10px;
+}
+
+.info-item {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-weight: bold;
+  color: var(--dark-blue-color);
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.info-value {
+  color: #555;
+  line-height: 1.5;
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contact-department {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid var(--light-blue-color);
+}
+
+.department-name {
+  font-weight: bold;
+  color: var(--dark-blue-color);
+  margin-bottom: 8px;
+}
+
+.department-contact {
+  color: #555;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .info-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 15px;
+  }
+
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .informationPage {
+    padding: 30px 10px;
+  }
+
+  .info-section {
+    padding: 15px;
+  }
+}

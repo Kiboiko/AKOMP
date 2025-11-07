@@ -3,7 +3,9 @@
   display: flex;
   align-items: center;
   min-height: 80vh;
-  border-bottom: 1px solid var(--black-color);
+  /* border-bottom: 1px solid var(--black-color); */
+  position: relative; /* Добавьте эту строку */
+  z-index: 1;
 }
 
 #bigLogoMain {
@@ -38,7 +40,17 @@
   padding: 1rem;
   font-size: large;
   border-radius: 7px;
+  background-color: var(--bg-blue-color);
+  color: var(--white-color);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  width: fit-content;
+  transition: background-color 0.3s ease;
 }
+
 #toAboutButton:hover {
-  background-color: var(--light-blue-color);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }

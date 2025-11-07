@@ -8,27 +8,45 @@
   display: flex;
   align-items: center;
   font-size: large;
+  z-index: 1000; /* Обеспечивает нахождение поверх всех элементов */
 }
+
 .header > div {
   display: flex;
   align-items: center;
   width: 100%;
   padding: 0 20px;
 }
+
 #headerlogo {
   width: fit-content;
 }
+
 #headermenu {
   width: fit-content;
   margin: 0 auto;
   display: flex;
   column-gap: 2rem;
 }
-#headermenu > div:hover {
-  transform: scale(1.15);
+
+#headermenu a {
+  color: var(--white-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
+
+#headermenu a:hover {
+  transform: scale(1.15);
+  color: var(--light-blue-color);
+}
+
 .headercontacts {
   display: flex;
   flex-direction: column;
   width: fit-content;
+}
+
+/* Плавная прокрутка для всей страницы */
+html {
+  scroll-behavior: smooth;
 }
