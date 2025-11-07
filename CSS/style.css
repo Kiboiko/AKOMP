@@ -1,9 +1,9 @@
-@import url("CSS/mainPageStyles.css");
-@import url("CSS/headerStyles.css");
-@import url("CSS/catalogStyles.css");
-@import url("CSS/aboutUsStyles.css");
-@import url("CSS/commentsStyles.css");
-@import url("CSS/informationStyles.css");
+@import url("./CSS/mainPageStyles.css");
+@import url("./CSS/headerStyles.css");
+@import url("./CSS/catalogStyles.css");
+@import url("./CSS/aboutUsStyles.css");
+@import url("./CSS/commentsStyles.css");
+@import url("./CSS/informationStyles.css");
 @import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap");
 :root {
   --black-color: #000000;
