@@ -10,6 +10,9 @@
   align-items: center;
   font-size: large;
   z-index: 1000;
+  /* Исправление для Safari */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .header > div {
@@ -22,18 +25,17 @@
 }
 
 #headerlogo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   font-size: 1.3rem;
   font-weight: bold;
-  text-align: center;
+  /* Логотип остается слева на десктопе */
 }
 
 #headermenu {
   display: flex;
   column-gap: 2rem;
-  margin-left: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #headermenu a {
@@ -93,6 +95,9 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     gap: 0;
+    position: absolute;
+    left: 0;
+    transform: none;
   }
 
   #headermenu.active {
@@ -119,16 +124,14 @@
 
   .mobile-menu-btn {
     display: block;
-    order: -1;
   }
 
+  /* На мобильных: кнопка слева, лого по центру */
   #headerlogo {
-    position: static;
-    transform: none;
-    order: 1;
-    flex-grow: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    margin: 0 40px; /* Отступы для кнопки меню */
   }
 }
 
@@ -139,7 +142,6 @@
 
   #headerlogo {
     font-size: 1.1rem;
-    margin: 0 30px;
   }
 
   .mobile-menu-btn {
