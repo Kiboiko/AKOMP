@@ -2,16 +2,21 @@
   display: flex;
   align-items: center;
   min-height: 80vh;
+  padding: 40px 20px;
 }
+
 #illustration {
   flex: 1.3;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
+
 #illustration img {
   max-width: 100%;
   height: auto;
+  max-height: 500px;
 }
 
 #descriptionAboutUs {
@@ -19,6 +24,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
 }
 
 #descriptionAboutUs > #slogan {
@@ -27,9 +33,76 @@
   margin-bottom: 1rem;
   padding-left: 8rem;
   padding-right: 8rem;
+  line-height: 1.2;
 }
+
 #descriptionAboutUs > span:last-child {
   color: #474747;
   padding-left: 8rem;
   padding-right: 8rem;
+  line-height: 1.6;
+}
+
+/* Адаптивность для страницы "О нас" */
+@media (max-width: 1200px) {
+  #descriptionAboutUs > #slogan,
+  #descriptionAboutUs > span:last-child {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  #descriptionAboutUs > #slogan {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutUsPage {
+    flex-direction: column;
+    padding: 40px 20px;
+    min-height: auto;
+  }
+
+  #illustration {
+    flex: none;
+    margin-bottom: 30px;
+    padding: 10px;
+  }
+
+  #illustration img {
+    max-height: 300px;
+  }
+
+  #descriptionAboutUs > #slogan,
+  #descriptionAboutUs > span:last-child {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  #descriptionAboutUs > #slogan {
+    font-size: 2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutUsPage {
+    padding: 30px 15px;
+  }
+
+  #descriptionAboutUs > #slogan,
+  #descriptionAboutUs > span:last-child {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #descriptionAboutUs > #slogan {
+    font-size: 1.8rem;
+  }
+
+  #descriptionAboutUs > span:last-child {
+    font-size: 0.9rem;
+  }
 }

@@ -5,10 +5,11 @@
   background-color: var(--bg-blue-color);
   color: var(--white-color);
   height: 7vh;
+  min-height: 60px;
   display: flex;
   align-items: center;
   font-size: large;
-  z-index: 1000; /* Обеспечивает нахождение поверх всех элементов */
+  z-index: 1000;
 }
 
 .header > div {
@@ -16,15 +17,16 @@
   align-items: center;
   width: 100%;
   padding: 0 20px;
+  justify-content: space-between;
 }
 
 #headerlogo {
   width: fit-content;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 #headermenu {
-  width: fit-content;
-  margin: 0 auto;
   display: flex;
   column-gap: 2rem;
 }
@@ -33,6 +35,7 @@
   color: var(--white-color);
   text-decoration: none;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 #headermenu a:hover {
@@ -40,10 +43,72 @@
   color: var(--light-blue-color);
 }
 
-.headercontacts {
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
+/* Мобильное меню */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--white-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Адаптивность для хедера */
+@media (max-width: 1024px) {
+  #headermenu {
+    column-gap: 1.5rem;
+  }
+
+  #headermenu a {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    min-height: 70px;
+  }
+
+  .header > div {
+    flex-wrap: wrap;
+    padding: 10px 15px;
+  }
+
+  #headermenu {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 15px;
+    gap: 10px;
+  }
+
+  #headermenu.active {
+    display: flex;
+  }
+
+  #headermenu div {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  #headerlogo {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header > div {
+    padding: 8px 10px;
+  }
+
+  #headerlogo {
+    font-size: 1rem;
+  }
 }
 
 /* Плавная прокрутка для всей страницы */

@@ -3,9 +3,9 @@
   display: flex;
   align-items: center;
   min-height: 80vh;
-  /* border-bottom: 1px solid var(--black-color); */
-  position: relative; /* Добавьте эту строку */
+  position: relative;
   z-index: 1;
+  padding: 20px;
 }
 
 #bigLogoMain {
@@ -13,11 +13,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
 #bigLogoMain img {
   max-width: 100%;
   height: auto;
+  max-height: 400px;
 }
 
 #mainPage > div:last-child {
@@ -25,19 +27,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
 }
+
 #sloganMain {
   font-size: 2.5rem;
   font-weight: bold;
+  line-height: 1.2;
 }
+
 #descriptionMain {
   font-size: 1.1rem;
   font-weight: normal;
   opacity: 0.8;
+  margin-top: 15px;
+  line-height: 1.5;
 }
+
 #toAboutButton {
   margin-top: 2rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
   font-size: large;
   border-radius: 7px;
   background-color: var(--bg-blue-color);
@@ -47,10 +56,71 @@
   text-align: center;
   border: none;
   width: fit-content;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 #toAboutButton:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--light-blue-color);
+}
+
+/* Адаптивность для главной страницы */
+@media (max-width: 1024px) {
+  #sloganMain {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #mainPage {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 70px;
+    min-height: auto;
+    padding: 40px 20px;
+  }
+
+  #bigLogoMain {
+    padding: 10px;
+    margin-bottom: 30px;
+  }
+
+  #bigLogoMain img {
+    max-height: 250px;
+  }
+
+  #sloganMain {
+    font-size: 2rem;
+  }
+
+  #descriptionMain {
+    font-size: 1rem;
+  }
+
+  #toAboutButton {
+    align-self: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #mainPage {
+    padding: 30px 15px;
+  }
+
+  #sloganMain {
+    font-size: 1.8rem;
+  }
+
+  #descriptionMain {
+    font-size: 0.9rem;
+  }
+
+  #toAboutButton {
+    width: 100%;
+    max-width: 250px;
+  }
 }

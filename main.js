@@ -82,12 +82,11 @@ class CommentsManager {
   }
 
   createCommentCard(comment) {
-    // Исправлено: параметр comment вместо product
     return `
             <div class="comment-card" data-id="${comment.id}">
                 <img src="${comment.image}" alt="${comment.name}" class="comment-image">
                 <div class="comment-description">${comment.description}</div>
-                <div class="comment-name">${comment.name}</div> <!-- Исправлено: comment.name вместо product.name -->
+                <div class="comment-name">${comment.name}</div>
             </div>
         `;
   }
@@ -102,11 +101,40 @@ class CommentsManager {
 const productManager = new ProductManager();
 const commentsManager = new CommentsManager();
 
+// Функция для мобильного меню
+function initMobileMenu() {
+  const menuBtn = document.createElement("button");
+  menuBtn.className = "mobile-menu-btn";
+  menuBtn.innerHTML = "☰";
+  menuBtn.setAttribute("aria-label", "Открыть меню");
+
+  const headerMenu = document.getElementById("headermenu");
+  const headerDiv = document.querySelector(".header > div");
+
+  // Вставляем кнопку перед логотипом
+  headerDiv.insertBefore(menuBtn, headerDiv.firstChild);
+
+  menuBtn.addEventListener("click", function () {
+    headerMenu.classList.toggle("active");
+    menuBtn.innerHTML = headerMenu.classList.contains("active") ? "✕" : "☰";
+  });
+
+  // Закрытие меню при клике на ссылку
+  headerMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      headerMenu.classList.remove("active");
+      menuBtn.innerHTML = "☰";
+    });
+  });
+}
+
 // Загружаем товары при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
   productManager.loadProducts();
   commentsManager.loadComments();
+  initMobileMenu(); // Инициализируем мобильное меню
 });
+
 document.querySelectorAll("#headermenu a").forEach((link) => {
   link.addEventListener("click", function (e) {
     e.preventDefault();
@@ -116,7 +144,7 @@ document.querySelectorAll("#headermenu a").forEach((link) => {
 
     if (targetElement) {
       const headerHeight = document.querySelector(".header").offsetHeight;
-      const targetPosition = targetElement.offsetTop - headerHeight - 20; // +20px дополнительный отступ
+      const targetPosition = targetElement.offsetTop - headerHeight - 20;
 
       window.scrollTo({
         top: targetPosition,
@@ -124,4 +152,16 @@ document.querySelectorAll("#headermenu a").forEach((link) => {
       });
     }
   });
+});
+
+// Обработчик изменения размера окна
+window.addEventListener("resize", function () {
+  const headerMenu = document.getElementById("headermenu");
+  const menuBtn = document.querySelector(".mobile-menu-btn");
+
+  // На больших экранах скрываем мобильное меню
+  if (window.innerWidth > 768) {
+    headerMenu.classList.remove("active");
+    if (menuBtn) menuBtn.innerHTML = "☰";
+  }
 });

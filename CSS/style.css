@@ -5,6 +5,7 @@
 @import url("./commentsStyles.css");
 @import url("./informationStyles.css");
 @import url("https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap");
+
 :root {
   --black-color: #000000;
   --white-color: #ffffff;
@@ -13,11 +14,13 @@
   --dark-blue-color: #003249;
   --light-blue-color: #0595c5;
 }
+
 body {
   margin: 0px;
   background-color: var(--bg-all-color);
   font-family: "Geologica", sans-serif;
 }
+
 button {
   background-color: var(--bg-blue-color);
   color: var(--white-color);
@@ -25,7 +28,42 @@ button {
   width: fit-content;
   height: auto;
 }
+
 .pageName {
   text-align: center;
   font-size: 2.5rem;
+}
+
+/* Адаптивные медиа-запросы */
+@media (max-width: 1200px) {
+  .pageName {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageName {
+    font-size: 2rem;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageName {
+    font-size: 1.8rem;
+    padding: 0 15px;
+  }
+}
+
+/* Общие адаптивные стили */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
 }
