@@ -15,20 +15,25 @@
 .header > div {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
   padding: 0 20px;
-  justify-content: space-between;
+  position: relative;
 }
 
 #headerlogo {
-  width: fit-content;
-  font-size: 1.2rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.3rem;
   font-weight: bold;
+  text-align: center;
 }
 
 #headermenu {
   display: flex;
   column-gap: 2rem;
+  margin-left: auto;
 }
 
 #headermenu a {
@@ -51,6 +56,8 @@
   color: var(--white-color);
   font-size: 1.5rem;
   cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
 }
 
 /* Адаптивность для хедера */
@@ -71,16 +78,21 @@
   }
 
   .header > div {
-    flex-wrap: wrap;
     padding: 10px 15px;
   }
 
   #headermenu {
     display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
     width: 100%;
+    background-color: var(--bg-blue-color);
     flex-direction: column;
-    margin-top: 15px;
-    gap: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 0;
   }
 
   #headermenu.active {
@@ -88,16 +100,35 @@
   }
 
   #headermenu div {
-    padding: 10px 0;
+    padding: 15px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    width: 100%;
+  }
+
+  #headermenu div:last-child {
+    border-bottom: none;
+  }
+
+  #headermenu a {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1.1rem;
   }
 
   .mobile-menu-btn {
     display: block;
+    order: -1;
   }
 
   #headerlogo {
-    font-size: 1.1rem;
+    position: static;
+    transform: none;
+    order: 1;
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 40px; /* Отступы для кнопки меню */
   }
 }
 
@@ -107,7 +138,21 @@
   }
 
   #headerlogo {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    margin: 0 30px;
+  }
+
+  .mobile-menu-btn {
+    font-size: 1.3rem;
+  }
+
+  #headermenu {
+    top: 60px;
+    padding: 15px;
+  }
+
+  #headermenu div {
+    padding: 12px 0;
   }
 }
 

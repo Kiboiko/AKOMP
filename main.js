@@ -103,20 +103,28 @@ const commentsManager = new CommentsManager();
 
 // Функция для мобильного меню
 function initMobileMenu() {
+  const headerDiv = document.querySelector(".header > div");
+  const headerMenu = document.getElementById("headermenu");
+
+  // Создаем кнопку мобильного меню
   const menuBtn = document.createElement("button");
   menuBtn.className = "mobile-menu-btn";
   menuBtn.innerHTML = "☰";
   menuBtn.setAttribute("aria-label", "Открыть меню");
+  menuBtn.setAttribute("aria-expanded", "false");
 
-  const headerMenu = document.getElementById("headermenu");
-  const headerDiv = document.querySelector(".header > div");
+  // Добавляем кнопку в начало хедера
+  headerDiv.prepend(menuBtn);
 
-  // Вставляем кнопку перед логотипом
-  headerDiv.insertBefore(menuBtn, headerDiv.firstChild);
-
+  // Обработчик клика по кнопке меню
   menuBtn.addEventListener("click", function () {
+    const isActive = headerMenu.classList.contains("active");
     headerMenu.classList.toggle("active");
-    menuBtn.innerHTML = headerMenu.classList.contains("active") ? "✕" : "☰";
+    menuBtn.innerHTML = isActive ? "☰" : "✕";
+    menuBtn.setAttribute("aria-expanded", !isActive);
+
+    // Блокируем прокрутку тела при открытом меню
+    document.body.style.overflow = isActive ? "" : "hidden";
   });
 
   // Закрытие меню при клике на ссылку
@@ -124,7 +132,32 @@ function initMobileMenu() {
     link.addEventListener("click", () => {
       headerMenu.classList.remove("active");
       menuBtn.innerHTML = "☰";
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
     });
+  });
+
+  // Закрытие меню при клике вне его области
+  document.addEventListener("click", (e) => {
+    if (
+      !headerDiv.contains(e.target) &&
+      headerMenu.classList.contains("active")
+    ) {
+      headerMenu.classList.remove("active");
+      menuBtn.innerHTML = "☰";
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Закрытие меню при нажатии Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && headerMenu.classList.contains("active")) {
+      headerMenu.classList.remove("active");
+      menuBtn.innerHTML = "☰";
+      menuBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
   });
 }
 
@@ -132,9 +165,10 @@ function initMobileMenu() {
 document.addEventListener("DOMContentLoaded", () => {
   productManager.loadProducts();
   commentsManager.loadComments();
-  initMobileMenu(); // Инициализируем мобильное меню
+  initMobileMenu();
 });
 
+// Плавная прокрутка для навигации
 document.querySelectorAll("#headermenu a").forEach((link) => {
   link.addEventListener("click", function (e) {
     e.preventDefault();
@@ -159,9 +193,15 @@ window.addEventListener("resize", function () {
   const headerMenu = document.getElementById("headermenu");
   const menuBtn = document.querySelector(".mobile-menu-btn");
 
-  // На больших экранах скрываем мобильное меню
+  // На больших экранах скрываем мобильное меню и восстанавливаем прокрутку
   if (window.innerWidth > 768) {
-    headerMenu.classList.remove("active");
-    if (menuBtn) menuBtn.innerHTML = "☰";
+    if (headerMenu.classList.contains("active")) {
+      headerMenu.classList.remove("active");
+      if (menuBtn) {
+        menuBtn.innerHTML = "☰";
+        menuBtn.setAttribute("aria-expanded", "false");
+      }
+      document.body.style.overflow = "";
+    }
   }
 });
