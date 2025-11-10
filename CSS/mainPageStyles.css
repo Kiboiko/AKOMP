@@ -124,3 +124,126 @@
     max-width: 250px;
   }
 }
+
+/* Анимация для слогана */
+#sloganMain {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* Анимация для описания */
+#descriptionMain {
+  font-size: 1.1rem;
+  font-weight: normal;
+  opacity: 0.8;
+  margin-top: 15px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 1s;
+}
+
+/* Анимация для кнопки */
+#toAboutButton {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: large;
+  border-radius: 7px;
+  background-color: var(--bg-blue-color);
+  color: var(--white-color);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  width: fit-content;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+  animation-delay: 1.5s;
+}
+
+/* Ключевые кадры анимации */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Дополнительные варианты анимаций (можно выбрать любой) */
+
+/* Эффект печатания */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinkCursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--black-color);
+  }
+}
+
+.typewriter-effect {
+  overflow: hidden;
+  border-right: 3px solid var(--black-color);
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: typewriter 3s steps(40, end), blinkCursor 0.75s step-end infinite;
+}
+
+/* Эффект появления с масштабированием */
+.scale-in {
+  animation: scaleIn 1s ease-out forwards;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Эффект волны для букв */
+.wave-text {
+  display: inline-block;
+}
+
+.wave-text span {
+  display: inline-block;
+  animation: wave 1.5s ease-in-out;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
