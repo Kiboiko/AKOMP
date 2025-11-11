@@ -167,6 +167,30 @@ document.addEventListener("DOMContentLoaded", () => {
   commentsManager.loadComments();
   initMobileMenu();
 });
+document.addEventListener("DOMContentLoaded", function () {
+  // Проверяем, есть ли сохраненный якорь в sessionStorage
+  const targetAnchor = sessionStorage.getItem("targetAnchor");
+
+  if (targetAnchor) {
+    // Даем время странице полностью загрузиться
+    setTimeout(() => {
+      const targetElement = document.getElementById(targetAnchor);
+
+      if (targetElement) {
+        const headerHeight = document.querySelector(".header").offsetHeight;
+        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+      }
+
+      // Очищаем сохраненный якорь после использования
+      sessionStorage.removeItem("targetAnchor");
+    }, 500);
+  }
+});
 
 // Плавная прокрутка для навигации
 document.querySelectorAll("#headermenu a").forEach((link) => {

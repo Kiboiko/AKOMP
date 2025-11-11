@@ -106,3 +106,57 @@
     font-size: 0.9rem;
   }
 }
+
+.more-details-btn {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: large;
+  border-radius: 7px;
+  background-color: var(--light-blue-color);
+  color: var(--white-color);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  width: fit-content;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+.more-details-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--bg-blue-color);
+  color: var(--white-color);
+}
+
+/* Адаптивность для кнопки */
+@media (max-width: 1200px) {
+  .more-details-btn {
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .more-details-btn {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    align-self: center;
+    width: 80%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .more-details-btn {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 90%;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

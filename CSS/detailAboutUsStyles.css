@@ -1,0 +1,144 @@
+/* STMstyles.css */
+.aboutDetailsPage {
+  padding: 40px 20px;
+  background-color: var(--bg-all-color);
+  margin-top: 7vh;
+}
+
+.aboutDetailsPage > .pageName {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--black-color);
+}
+
+.aboutDetails-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.aboutDetails-section {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.aboutDetails-section h2 {
+  color: var(--dark-blue-color);
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  border-bottom: 2px solid var(--light-blue-color);
+  padding-bottom: 10px;
+}
+
+.aboutDetails-section p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.aboutDetails-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.aboutDetails-list li {
+  margin-bottom: 10px;
+  padding-left: 25px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.aboutDetails-list li:before {
+  content: "•";
+  color: var(--light-blue-color);
+  font-weight: bold;
+  position: absolute;
+  left: 10px;
+}
+
+/* Стили для блока с обтеканием текста вокруг картинки */
+.stm-with-image {
+  /* Убираем flex, чтобы использовать float */
+  display: block;
+}
+
+.stm-content {
+  /* Убираем flex свойства */
+}
+
+.stm-image {
+  float: right;
+  margin: 0 0 20px 30px;
+  width: 300px;
+  text-align: center;
+}
+
+.stm-image img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.stm-image p {
+  margin-top: 10px;
+  font-weight: bold;
+  color: var(--dark-blue-color);
+  font-style: italic;
+}
+
+/* Очистка float для следующего элемента */
+.aboutDetails-section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Адаптивность для страницы "Подробнее о нас" */
+@media (max-width: 1024px) {
+  #stm-image {
+    width: 150px;
+    height: 230px;
+    /* margin: 0 0 20px 20px; */
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutDetails-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0 15px;
+  }
+
+  .aboutDetails-section {
+    padding: 20px;
+  }
+
+  .stm-image {
+    float: none;
+    margin: 0 auto 20px auto;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutDetailsPage {
+    padding: 30px 10px;
+  }
+
+  .aboutDetails-section {
+    padding: 15px;
+  }
+
+  .stm-image {
+    max-width: 250px;
+  }
+}
