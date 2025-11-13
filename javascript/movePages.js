@@ -35,92 +35,94 @@ document.addEventListener("DOMContentLoaded", function () {
         // Переходим на главную страницу
         window.location.href = "index.html";
       }
+      // Для всех остальных ссылок (включая products.html) - разрешаем обычное поведение
+      // Не делаем e.preventDefault() для этих ссылок
     });
   });
 
   // Инициализация мобильного меню
-  function initMobileMenu() {
-    const headerDiv = document.querySelector(".header > div");
-    const headerMenu = document.getElementById("headermenu");
+  //   function initMobileMenu() {
+  //     const headerDiv = document.querySelector(".header > div");
+  //     const headerMenu = document.getElementById("headermenu");
 
-    // Проверяем, есть ли уже кнопка мобильного меню
-    if (document.querySelector(".mobile-menu-btn")) {
-      return;
-    }
+  //     // Проверяем, есть ли уже кнопка мобильного меню
+  //     if (document.querySelector(".mobile-menu-btn")) {
+  //       return;
+  //     }
 
-    // Создаем кнопку мобильного меню
-    const menuBtn = document.createElement("button");
-    menuBtn.className = "mobile-menu-btn";
-    menuBtn.innerHTML = "☰";
-    menuBtn.setAttribute("aria-label", "Открыть меню");
-    menuBtn.setAttribute("aria-expanded", "false");
+  //     // Создаем кнопку мобильного меню
+  //     const menuBtn = document.createElement("button");
+  //     menuBtn.className = "mobile-menu-btn";
+  //     menuBtn.innerHTML = "☰";
+  //     menuBtn.setAttribute("aria-label", "Открыть меню");
+  //     menuBtn.setAttribute("aria-expanded", "false");
 
-    // Добавляем кнопку в начало хедера
-    headerDiv.prepend(menuBtn);
+  //     // Добавляем кнопку в начало хедера
+  //     headerDiv.prepend(menuBtn);
 
-    // Обработчик клика по кнопке меню
-    menuBtn.addEventListener("click", function () {
-      const isActive = headerMenu.classList.contains("active");
-      headerMenu.classList.toggle("active");
-      menuBtn.innerHTML = isActive ? "☰" : "✕";
-      menuBtn.setAttribute("aria-expanded", !isActive);
+  //     // Обработчик клика по кнопке меню
+  //     menuBtn.addEventListener("click", function () {
+  //       const isActive = headerMenu.classList.contains("active");
+  //       headerMenu.classList.toggle("active");
+  //       menuBtn.innerHTML = isActive ? "☰" : "✕";
+  //       menuBtn.setAttribute("aria-expanded", !isActive);
 
-      // Блокируем прокрутку тела при открытом меню
-      document.body.style.overflow = isActive ? "" : "hidden";
-    });
+  //       // Блокируем прокрутку тела при открытом меню
+  //       document.body.style.overflow = isActive ? "" : "hidden";
+  //     });
 
-    // Закрытие меню при клике на ссылку
-    headerMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        headerMenu.classList.remove("active");
-        menuBtn.innerHTML = "☰";
-        menuBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      });
-    });
+  //     // Закрытие меню при клике на ссылку
+  //     headerMenu.querySelectorAll("a").forEach((link) => {
+  //       link.addEventListener("click", () => {
+  //         headerMenu.classList.remove("active");
+  //         menuBtn.innerHTML = "☰";
+  //         menuBtn.setAttribute("aria-expanded", "false");
+  //         document.body.style.overflow = "";
+  //       });
+  //     });
 
-    // Закрытие меню при клике вне его области
-    document.addEventListener("click", (e) => {
-      if (
-        !headerDiv.contains(e.target) &&
-        headerMenu.classList.contains("active")
-      ) {
-        headerMenu.classList.remove("active");
-        menuBtn.innerHTML = "☰";
-        menuBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      }
-    });
+  //     // Закрытие меню при клике вне его области
+  //     document.addEventListener("click", (e) => {
+  //       if (
+  //         !headerDiv.contains(e.target) &&
+  //         headerMenu.classList.contains("active")
+  //       ) {
+  //         headerMenu.classList.remove("active");
+  //         menuBtn.innerHTML = "☰";
+  //         menuBtn.setAttribute("aria-expanded", "false");
+  //         document.body.style.overflow = "";
+  //       }
+  //     });
 
-    // Закрытие меню при нажатии Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && headerMenu.classList.contains("active")) {
-        headerMenu.classList.remove("active");
-        menuBtn.innerHTML = "☰";
-        menuBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      }
-    });
-  }
+  //     // Закрытие меню при нажатии Escape
+  //     document.addEventListener("keydown", (e) => {
+  //       if (e.key === "Escape" && headerMenu.classList.contains("active")) {
+  //         headerMenu.classList.remove("active");
+  //         menuBtn.innerHTML = "☰";
+  //         menuBtn.setAttribute("aria-expanded", "false");
+  //         document.body.style.overflow = "";
+  //       }
+  //     });
+  //   }
 
-  // Инициализируем мобильное меню
-  initMobileMenu();
+  //   // Инициализируем мобильное меню
+  //   initMobileMenu();
 
-  // Обработчик изменения размера окна
-  window.addEventListener("resize", function () {
-    const headerMenu = document.getElementById("headermenu");
-    const menuBtn = document.querySelector(".mobile-menu-btn");
+  //   // Обработчик изменения размера окна
+  //   window.addEventListener("resize", function () {
+  //     const headerMenu = document.getElementById("headermenu");
+  //     const menuBtn = document.querySelector(".mobile-menu-btn");
 
-    // На больших экранах скрываем мобильное меню и восстанавливаем прокрутку
-    if (window.innerWidth > 768) {
-      if (headerMenu.classList.contains("active")) {
-        headerMenu.classList.remove("active");
-        if (menuBtn) {
-          menuBtn.innerHTML = "☰";
-          menuBtn.setAttribute("aria-expanded", "false");
-        }
-        document.body.style.overflow = "";
-      }
-    }
-  });
+  //     // На больших экранах скрываем мобильное меню и восстанавливаем прокрутку
+  //     if (window.innerWidth > 768) {
+  //       if (headerMenu.classList.contains("active")) {
+  //         headerMenu.classList.remove("active");
+  //         if (menuBtn) {
+  //           menuBtn.innerHTML = "☰";
+  //           menuBtn.setAttribute("aria-expanded", "false");
+  //         }
+  //         document.body.style.overflow = "";
+  //       }
+  //     }
+  //   });
 });

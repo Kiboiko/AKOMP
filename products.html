@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Наши товары - АКОМП ЮГ</title>
+    <link rel="stylesheet" href="./CSS/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <div id="headerlogo">АКОМП ЮГ</div>
+        <div id="headermenu">
+          <div><a href="index.html" class="MainButton">Главная</a></div>
+          <div><a href="#productsContainer-anchor">Каталог</a></div>
+          <div>
+            <a href="index.html#descriptionAboutUs-anchor">О компании</a>
+          </div>
+          <div><a href="index.html#commentsContainer-anchor">Отзывы</a></div>
+          <div><a href="index.html#informationPage-anchor">Контакты</a></div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="productsPage">
+        <div
+          id="productsContainer-anchor"
+          style="position: relative; top: -80px"
+        ></div>
+        <h1 class="pageName">Наши товары</h1>
+        <div class="products-grid" id="productsContainer">
+          <!-- Карточки будут генерироваться здесь -->
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="./javascript/productManager.js"></script>
+    <script src="./javascript/movePages.js"></script>
+    <script src="./javascript/main.js"></script>
+  </body>
+</html>

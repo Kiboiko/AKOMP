@@ -62,6 +62,50 @@
   margin-top: 10px;
 }
 
+/* Стили для кнопки "Наши товары" */
+.products-button-container {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.products-button {
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-size: large;
+  border-radius: 7px;
+  background-color: var(--light-blue-color);
+  color: var(--white-color);
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.products-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background-color: var(--bg-blue-color);
+  color: var(--white-color);
+}
+
+/* Адаптивность для кнопки */
+@media (max-width: 768px) {
+  .products-button {
+    width: 80%;
+    max-width: 300px;
+    padding: 0.9rem 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-button {
+    width: 90%;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .comments-grid {
@@ -90,5 +134,149 @@
 
   .comment-description {
     font-size: 1em;
+  }
+}
+/* Стили для подсказки-кнопки к товарам */
+.comments-to-products-hint {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%) translateX(100px);
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.comments-to-products-hint.visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.products-hint-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--light-blue-color);
+  color: white;
+  text-decoration: none;
+  padding: 15px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.products-hint-btn:hover {
+  background: var(--bg-blue-color);
+  transform: translateX(-5px);
+  box-shadow: 0 6px 25px rgba(0, 123, 255, 0.4);
+}
+
+.products-hint-btn span {
+  font-size: 0.9rem;
+}
+
+/* Адаптивность для подсказки - ТЕПЕРЬ С АНИМАЦИЕЙ ДЛЯ МОБИЛЬНЫХ */
+@media (max-width: 768px) {
+  .comments-to-products-hint {
+    position: fixed;
+    right: 15px;
+    bottom: 80px; /* Размещаем снизу для удобства на мобильных */
+    top: auto;
+    transform: translateY(100px) translateX(0);
+    left: auto;
+  }
+
+  .comments-to-products-hint.visible {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+
+  .products-hint-btn {
+    padding: 14px 18px;
+    border-radius: 25px;
+    box-shadow: 0 6px 25px rgba(0, 123, 255, 0.4);
+  }
+
+  .products-hint-btn span {
+    font-size: 0.85rem;
+  }
+
+  .products-hint-btn:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Уменьшаем немного на очень маленьких экранах */
+  @media (max-width: 480px) {
+    .comments-to-products-hint {
+      right: 10px;
+      bottom: 70px;
+    }
+
+    .products-hint-btn {
+      padding: 12px 16px;
+    }
+
+    .products-hint-btn span {
+      font-size: 0.8rem;
+    }
+  }
+
+  /* Горизонтальная ориентация на мобильных */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .comments-to-products-hint {
+      bottom: 60px;
+      right: 15px;
+    }
+
+    .products-hint-btn {
+      padding: 10px 15px;
+    }
+  }
+}
+
+/* Для очень маленьких экранов - альтернативный вариант */
+@media (max-width: 360px) {
+  .comments-to-products-hint {
+    right: 5px;
+    bottom: 60px;
+  }
+
+  .products-hint-btn {
+    padding: 10px 14px;
+  }
+
+  .products-hint-btn span {
+    font-size: 0.75rem;
+  }
+}
+/* Дополнительные стили для лучшего UX на мобильных */
+@media (max-width: 768px) {
+  .products-hint-btn:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+
+  /* Убедимся, что кнопка не мешает другим элементам */
+  .comments-to-products-hint {
+    pointer-events: auto;
+  }
+
+  /* Анимация пульсации для привлечения внимания */
+  @keyframes pulse-mobile {
+    0% {
+      box-shadow: 0 6px 25px rgba(0, 123, 255, 0.4);
+    }
+    50% {
+      box-shadow: 0 6px 30px rgba(0, 123, 255, 0.7);
+    }
+    100% {
+      box-shadow: 0 6px 25px rgba(0, 123, 255, 0.4);
+    }
+  }
+
+  .comments-to-products-hint.visible .products-hint-btn {
+    animation: pulse-mobile 2s ease-in-out 2;
   }
 }

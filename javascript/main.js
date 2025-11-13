@@ -1,69 +1,3 @@
-class ProductManager {
-  constructor() {
-    this.products = [];
-    this.container = document.getElementById("productsContainer");
-  }
-
-  // Метод для загрузки данных
-  async loadProducts() {
-    try {
-      const response = await fetch("products.json");
-      this.products = await response.json();
-      this.renderProducts();
-    } catch (error) {
-      console.error("Ошибка загрузки товаров:", error);
-    }
-  }
-
-  //Метод для определения самого длинного описания
-  getLongestDescription() {
-    let longest = -1;
-    this.products.forEach((product) => {
-      if (product.description.length > longest) {
-        longest = product.description.length;
-      }
-    });
-    return longest;
-  }
-
-  // Метод для форматирования цены
-  formatPrice(price) {
-    return new Intl.NumberFormat("ru-RU", {
-      style: "currency",
-      currency: "RUB",
-    }).format(price);
-  }
-
-  // Метод для создания HTML карточки
-  createProductCard(product) {
-    let formatDescription =
-      product.description +
-      " ".repeat(this.getLongestDescription() - product.description.length);
-    return `
-            <div class="product-card" data-id="${product.id}">
-                <img src="${product.image}" alt="${
-      product.name
-    }" class="product-image">
-                <div class="product-name">${product.name}</div>
-                <div class="product-description">${formatDescription}</div>
-                <div class="product-price">${this.formatPrice(
-                  product.price
-                )}</div>
-                <button class="more-info-button">
-                    Подробнее
-                </button>
-            </div>
-        `;
-  }
-
-  // Метод для отрисовки всех карточек
-  renderProducts() {
-    this.container.innerHTML = this.products
-      .map((product) => this.createProductCard(product))
-      .join("");
-  }
-}
-
 class CommentsManager {
   constructor() {
     this.comments = [];
@@ -98,7 +32,6 @@ class CommentsManager {
   }
 }
 
-const productManager = new ProductManager();
 const commentsManager = new CommentsManager();
 
 // Функция для мобильного меню
@@ -163,12 +96,16 @@ function initMobileMenu() {
 
 // Загружаем товары при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
-  productManager.loadProducts();
-  commentsManager.loadComments();
+  const commentsContainer = document.getElementById("commentsContainer");
+  if (commentsContainer) {
+    commentsManager.loadComments();
+  }
+
   initMobileMenu();
+  initCommentsSectionObserver();
+  initMobileTouchInteractions();
 });
 document.addEventListener("DOMContentLoaded", function () {
-  // Проверяем, есть ли сохраненный якорь в sessionStorage
   const targetAnchor = sessionStorage.getItem("targetAnchor");
 
   if (targetAnchor) {
@@ -191,10 +128,91 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 500);
   }
 });
+// Функция для отслеживания видимости раздела комментариев
+function initCommentsSectionObserver() {
+  const commentsSection = document.getElementById("commentsContainer-anchor");
+  const hintElement = document.querySelector(".comments-to-products-hint");
+
+  if (!commentsSection || !hintElement) return;
+
+  // Настройки для разных устройств
+  const isMobile = window.innerWidth <= 768;
+  const observerOptions = isMobile
+    ? {
+        threshold: 0.2, // Ниже порог для мобильных
+        rootMargin: "-30px 0px -30px 0px",
+      }
+    : {
+        threshold: 0.3,
+        rootMargin: "-50px 0px -50px 0px",
+      };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Показываем подсказку с задержкой
+        setTimeout(
+          () => {
+            hintElement.classList.add("visible");
+          },
+          isMobile ? 300 : 500
+        ); // Меньшая задержка на мобильных
+      } else {
+        // Скрываем подсказку
+        hintElement.classList.remove("visible");
+      }
+    });
+  }, observerOptions);
+
+  observer.observe(commentsSection);
+
+  // Обработчик изменения ориентации экрана
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      // Переинициализируем при значительном изменении размера
+      if (Math.abs(window.innerWidth - (window.oldWidth || 0)) > 100) {
+        observer.disconnect();
+        initCommentsSectionObserver();
+        window.oldWidth = window.innerWidth;
+      }
+    }, 250);
+  });
+}
+
+// Дополнительная функция для touch-устройств
+function initMobileTouchInteractions() {
+  const hintBtn = document.querySelector(".products-hint-btn");
+  if (!hintBtn) return;
+
+  // Добавляем визуальный feedback при касании
+  hintBtn.addEventListener(
+    "touchstart",
+    function () {
+      this.style.transform = "scale(0.95)";
+    },
+    { passive: true }
+  );
+
+  hintBtn.addEventListener(
+    "touchend",
+    function () {
+      this.style.transform = "";
+    },
+    { passive: true }
+  );
+}
 
 // Плавная прокрутка для навигации
 document.querySelectorAll("#headermenu a").forEach((link) => {
   link.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+
+    // Разрешаем стандартное поведение для ссылки на products.html
+    if (href === "products.html" || href === "./products.html") {
+      return; // Не предотвращаем переход
+    }
     e.preventDefault();
 
     const targetId = this.getAttribute("href").substring(1);
@@ -217,7 +235,6 @@ window.addEventListener("resize", function () {
   const headerMenu = document.getElementById("headermenu");
   const menuBtn = document.querySelector(".mobile-menu-btn");
 
-  // На больших экранах скрываем мобильное меню и восстанавливаем прокрутку
   if (window.innerWidth > 768) {
     if (headerMenu.classList.contains("active")) {
       headerMenu.classList.remove("active");
@@ -228,4 +245,14 @@ window.addEventListener("resize", function () {
       document.body.style.overflow = "";
     }
   }
+
+  // Переинициализируем observer при переходе между мобильным и десктопным режимом
+  const oldIsMobile = window.wasMobile;
+  const newIsMobile = window.innerWidth <= 768;
+
+  if (oldIsMobile !== newIsMobile) {
+    setTimeout(initCommentsSectionObserver, 100);
+  }
+
+  window.wasMobile = newIsMobile;
 });
