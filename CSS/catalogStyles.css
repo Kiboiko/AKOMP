@@ -1,10 +1,11 @@
 .productsPage {
-  padding: 40px 20px;
+  padding: 60px 20px 40px;
 }
 
 .productsPage > .pageName {
   text-align: center;
   margin-bottom: 30px;
+  padding-top: 50px;
 }
 
 .products-grid {
