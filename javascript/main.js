@@ -255,24 +255,4 @@ window.addEventListener("resize", function () {
   }
 
   window.wasMobile = newIsMobile;
-});
-
-// Добавьте этот скрипт
-document.addEventListener("DOMContentLoaded", function () {
-  const video = document.getElementById("myVideo");
-
-  // Пытаемся запустить видео
-  const playVideo = () => {
-    video.play().catch((error) => {
-      console.log("Автовоспроизведение заблокировано:", error);
-    });
-  };
-
-  // Запускаем при загрузке
-  playVideo();
-
-  // Также запускаем при любом взаимодействии пользователя
-  document.addEventListener("click", playVideo);
-  document.addEventListener("touchstart", playVideo);
-  document.addEventListener("scroll", playVideo);
-});
+}); 
