@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:15-alpine
+    container_name: akomp_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-akomp_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-akomp_pass123}
+      POSTGRES_DB: ${DB_NAME:-akomp_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - akomp_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-akomp_user} -d ${DB_NAME:-akomp_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin для управления базой (опционально)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: akomp_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@akomp.ru}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - akomp_network
+    restart: unless-stopped
+
+  # Node.js приложение
+  app:
+    build: .
+    container_name: akomp_app
+    environment:
+      DB_USER: ${DB_USER:-akomp_user}
+      DB_PASSWORD: ${DB_PASSWORD:-akomp_pass123}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-akomp_db}
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - akomp_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    name: akomp_postgres_data
+
+networks:
+  akomp_network:
+    name: akomp_network
+    driver: bridge

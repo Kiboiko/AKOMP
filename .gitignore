@@ -1,0 +1,95 @@
+# Зависимости Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Файлы окружения и конфигурации
+.env
+.env.local
+.env.production
+.env.development
+
+# Медиафайлы (загруженные пользователями)
+/media/products/
+/media/uploads/
+/media/*.mp4
+!media/video.mp4
+
+# Логи сервера
+*.log
+logs/
+server.log
+
+# Файлы базы данных (если локальная)
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Временные файлы
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Файлы резервных копий
+*.bak
+*.backup
+*.old
+*.orig
+
+# Файлы IDE и редакторов
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Файлы сборки и кэша
+.cache/
+dist/
+build/
+.tmp/
+
+# Файлы тестов
+coverage/
+.nyc_output/
+
+# Файлы PostgreSQL (если локальная БД)
+data/
+pgdata/
+
+# Конфигурационные файлы ОС
+Desktop.ini
+ehthumbs.db
+Icon?
+
+# Документация (опционально, если не хотите коммитить)
+*.pdf
+*.docx
+!README.md
+
+# Файлы отладки
+debug.log
+error.log
+
+# Временные файлы npm
+.npm/
+.npm-cache/
+
+# Файлы pgAdmin (если локально)
+.pgadmin/
+servers.json
+
+# Скриншоты и тестовые изображения
+test-images/
+screenshots/
