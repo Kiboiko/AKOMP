@@ -42,19 +42,81 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// Функция проверки подключения к БД
-async function checkDatabaseConnection(retries = 10, delay = 3000) {
-    for (let i = 0; i < retries; i++) {
+// Функция инициализации базы данных
+async function initializeDatabase() {
+    const maxRetries = 30;
+    const delay = 2000;
+    
+    for (let i = 0; i < maxRetries; i++) {
         try {
+            console.log(`📊 Попытка подключения к БД... (${i + 1}/${maxRetries})`);
+            
+            // Проверка подключения
             await pool.query('SELECT 1');
             console.log('✅ Подключение к PostgreSQL установлено');
+            
+            // Инициализация таблиц
+            console.log('📋 Инициализация таблиц...');
+            await pool.query(`
+                CREATE TABLE IF NOT EXISTS products (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255) NOT NULL,
+                    article VARCHAR(100) NOT NULL UNIQUE,
+                    image_url TEXT,
+                    description TEXT,
+                    price DECIMAL(10, 2),
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                
+                CREATE INDEX IF NOT EXISTS idx_products_article ON products(article);
+                CREATE INDEX IF NOT EXISTS idx_products_name ON products(name);
+                
+                CREATE TABLE IF NOT EXISTS product_images (
+                    id SERIAL PRIMARY KEY,
+                    product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+                    image_url TEXT NOT NULL,
+                    is_main BOOLEAN DEFAULT FALSE,
+                    sort_order INTEGER DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                
+                CREATE INDEX IF NOT EXISTS idx_product_images_product_id ON product_images(product_id);
+                
+                CREATE OR REPLACE FUNCTION update_updated_at_column()
+                RETURNS TRIGGER AS $$
+                BEGIN
+                    NEW.updated_at = CURRENT_TIMESTAMP;
+                    RETURN NEW;
+                END;
+                $$ language 'plpgsql';
+                
+                DROP TRIGGER IF EXISTS update_products_updated_at ON products;
+                CREATE TRIGGER update_products_updated_at 
+                    BEFORE UPDATE ON products 
+                    FOR EACH ROW 
+                    EXECUTE FUNCTION update_updated_at_column();
+            `);
+            
+            // Вставка тестовых данных
+            await pool.query(`
+                INSERT INTO products (name, article, description, price) 
+                VALUES 
+                    ('Молоко цельное сгущенное с сахаром', 'SG-001', 'М.Д.Ж. 8,5% ж/б, 380 г., крышка легко вскрываемая с кольцом', 117.00),
+                    ('Консервы молокосодержащие сгущённые с сахаром «Сгущёнка»', 'SG-002', 'М.Д.Ж. 8,5% ж/б, 370 г.', 83.50),
+                    ('Продукт молокосодержащий сгущенный «Варёная Сгущёнка»', 'SG-003', 'М.Д.Ж. 8,5% ж/б, 370 г.', 75.00)
+                ON CONFLICT (article) DO NOTHING;
+            `);
+            
+            console.log('✅ База данных инициализирована успешно');
             return true;
         } catch (err) {
-            console.log(`⏳ Ожидание подключения к БД... (${i + 1}/${retries})`);
+            console.log(`⏳ Ожидание БД... (${i + 1}/${maxRetries})`);
             await new Promise(resolve => setTimeout(resolve, delay));
         }
     }
-    console.error('❌ Не удалось подключиться к PostgreSQL');
+    
+    console.warn('⚠️ Не удалось подключиться к БД, но приложение продолжит работу');
     return false;
 }
 
@@ -248,19 +310,13 @@ app.get('/health', (req, res) => {
 
 // Запуск сервера
 async function startServer() {
-    const dbConnected = await checkDatabaseConnection();
-    
-    if (!dbConnected) {
-        console.error('❌ Не удалось запустить сервер без подключения к БД');
-        process.exit(1);
-    }
-    
-    app.listen(PORT, '0.0.0.0', () => {
+    // Запускаем сервер сразу
+    const server = app.listen(PORT, '0.0.0.0', () => {
         const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
         console.log(`\n🚀 Сервер запущен на http://${host}:${PORT}`);
         console.log(`📦 Админ-панель: http://${host}:${PORT}/push`);
         console.log(`📊 API товаров: http://${host}:${PORT}/api/products`);
-        console.log(`💚 Health check: http://localhost:${PORT}/health`);
+        console.log(`💚 Health check: http://${host}:${PORT}/health`);
         
         if (process.env.NODE_ENV !== 'production') {
             console.log(`\n🐘 pgAdmin: http://localhost:5050`);
@@ -269,6 +325,16 @@ async function startServer() {
         }
         console.log('');
     });
+    
+    // Инициализируем БД в фоне
+    setTimeout(() => {
+        initializeDatabase().catch(err => {
+            console.error('Критическая ошибка БД:', err.message);
+        });
+    }, 1000);
 }
 
-startServer();
+startServer().catch(err => {
+    console.error('Ошибка запуска сервера:', err.message);
+    process.exit(1);
+});

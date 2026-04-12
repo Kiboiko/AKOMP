@@ -7,39 +7,31 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        fromService:
-          type: web
-          property: port
       - key: DB_HOST
-        fromService:
-          type: pserv
+        fromDatabase:
           name: akomp-postgres
           property: host
       - key: DB_PORT
-        fromService:
-          type: pserv
+        fromDatabase:
           name: akomp-postgres
           property: port
       - key: DB_NAME
-        fromService:
-          type: pserv
+        fromDatabase:
           name: akomp-postgres
           property: database
       - key: DB_USER
-        fromService:
-          type: pserv
+        fromDatabase:
           name: akomp-postgres
           property: user
       - key: DB_PASSWORD
-        fromService:
-          type: pserv
+        fromDatabase:
           name: akomp-postgres
           property: password
+    depends_on:
+      - akomp-postgres
 
   - type: pserv
     name: akomp-postgres
     runtime: postgresql
-    databaseName: akomp_db
-    user: akomp_user
     plan: starter
+    ipAllowList: []
