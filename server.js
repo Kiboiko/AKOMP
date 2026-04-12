@@ -14,16 +14,30 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 app.use('/media', express.static(path.join(__dirname, 'media')));
 
+console.log('=== ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ ===');
+console.log('PGHOST:', process.env.PGHOST);
+console.log('PGUSER:', process.env.PGUSER);
+console.log('PGDATABASE:', process.env.PGDATABASE);
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_USER:', process.env.DB_USER);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('=============================');
 // PostgreSQL подключение с повторными попытками
 const pool = new Pool({
-    user: process.env.DB_USER || process.env.PGUSER || 'akomp_user',
-    password: process.env.DB_PASSWORD || process.env.PGPASSWORD || 'akomp_pass123',
-    host: process.env.DB_HOST || process.env.PGHOST || 'localhost',
-    port: process.env.DB_PORT || process.env.PGPORT || 5432,
-    database: process.env.DB_NAME || process.env.PGDATABASE || 'akomp_db',
+    host: process.env.PGHOST || process.env.DB_HOST || 'localhost',
+    port: process.env.PGPORT || process.env.DB_PORT || 5432,
+    user: process.env.PGUSER || process.env.DB_USER || 'akomp_user',
+    password: process.env.PGPASSWORD || process.env.DB_PASSWORD || 'akomp_pass123',
+    database: process.env.PGDATABASE || process.env.DB_NAME || 'akomp_db',
     max: 20,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    connectionTimeoutMillis: 5000, // Увеличил таймаут
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
+
+// Добавьте обработчик ошибок подключения
+pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err);
 });
 
 // Настройка загрузки изображений
