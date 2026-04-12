@@ -16,11 +16,11 @@ app.use('/media', express.static(path.join(__dirname, 'media')));
 
 // PostgreSQL подключение с повторными попытками
 const pool = new Pool({
-    user: process.env.DB_USER || 'akomp_user',
-    password: process.env.DB_PASSWORD || 'akomp_pass123',
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
-    database: process.env.DB_NAME || 'akomp_db',
+    user: process.env.DB_USER || process.env.PGUSER || 'akomp_user',
+    password: process.env.DB_PASSWORD || process.env.PGPASSWORD || 'akomp_pass123',
+    host: process.env.DB_HOST || process.env.PGHOST || 'localhost',
+    port: process.env.DB_PORT || process.env.PGPORT || 5432,
+    database: process.env.DB_NAME || process.env.PGDATABASE || 'akomp_db',
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
