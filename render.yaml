@@ -28,8 +28,7 @@ services:
           name: akomp-postgres
           property: password
 
-  - type: pserv
-    name: akomp-postgres
-    runtime: postgresql
+databases:
+  - name: akomp-postgres
     plan: starter
-    ipAllowList: []
+    postgresVersion: 15
