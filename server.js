@@ -255,10 +255,11 @@ async function startServer() {
         process.exit(1);
     }
     
-    app.listen(PORT, () => {
-        console.log(`\n🚀 Сервер запущен на http://localhost:${PORT}`);
-        console.log(`📦 Админ-панель: http://localhost:${PORT}/push`);
-        console.log(`📊 API товаров: http://localhost:${PORT}/api/products`);
+    app.listen(PORT, '0.0.0.0', () => {
+        const host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+        console.log(`\n🚀 Сервер запущен на http://${host}:${PORT}`);
+        console.log(`📦 Админ-панель: http://${host}:${PORT}/push`);
+        console.log(`📊 API товаров: http://${host}:${PORT}/api/products`);
         console.log(`💚 Health check: http://localhost:${PORT}/health`);
         
         if (process.env.NODE_ENV !== 'production') {
