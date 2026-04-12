@@ -27,8 +27,6 @@ services:
         fromDatabase:
           name: akomp-postgres
           property: password
-    depends_on:
-      - akomp-postgres
 
   - type: pserv
     name: akomp-postgres
