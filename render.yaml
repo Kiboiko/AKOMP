@@ -30,5 +30,4 @@ services:
 
 databases:
   - name: akomp-postgres
-    plan: starter
-    postgresVersion: 15
+    plan: free
