@@ -30,7 +30,7 @@ const pool = new Pool({
     password: process.env.PGPASSWORD || process.env.DB_PASSWORD || 'akomp_pass123',
     database: process.env.PGDATABASE || process.env.DB_NAME || 'akomp_db',
     max: 20,
-    idleTimeoutMillis: 30000,
+    idleTimeoutMillis: 120000,
     connectionTimeoutMillis: 5000, // Увеличил таймаут
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });

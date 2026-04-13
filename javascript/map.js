@@ -1,6 +1,6 @@
 function initMap() {
   ymaps.ready(function () {
-    let coord = [47.092126, 39.396713];
+    let coord = [47.193153, 39.686051];
     var map = new ymaps.Map("map", {
       center: coord,
       zoom: 17,
